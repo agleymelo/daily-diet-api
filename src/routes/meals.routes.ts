@@ -8,6 +8,47 @@ import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 export async function mealsRoutes(app: FastifyInstance) {
   app.addHook("preHandler", checkSessionIdExists)
 
+  app.get("/metrics", async (request, reply) => {
+    const { id: userId } = request.user
+
+    const totalMealsOnDiet = await knex("meals").where({ user_id: userId, is_diet: true }).count("id", { as: "total" }).first()
+    const totalMealsOffDiet = await knex("meals").where({ user_id: userId, is_diet: false }).count("id", { as: "total" }).first()
+    const totalMeals = await knex("meals").where({ user_id: userId }).orderBy("date", "desc")
+
+    const { bestOnDiet } = totalMeals.reduce((acc, meals) => {
+      if (meals.is_diet) {
+        acc.currenteSequenceOnDiet += 1
+      } else {
+        acc.currenteSequenceOnDiet = 0
+      }
+
+      if (acc.currenteSequenceOnDiet > acc.bestOnDiet) {
+        acc.bestOnDiet = acc.currenteSequenceOnDiet
+      }
+
+      return acc
+
+    }, {
+      bestOnDiet: 0,
+      currenteSequenceOnDiet: 0,
+    })
+
+    return reply.status(200).send({
+      totalMeals: totalMeals.length,
+      totalMealsOnDiet: totalMealsOnDiet?.total,
+      totalMealsOffDiet: totalMealsOffDiet?.total,
+      bestOnDiet
+    })
+
+
+    // const meals = await knex("meals").where({ user_id: userId }).orderBy("date", "asc")
+    // const totalDietMeals = meals.filter((meal) => meal.is_diet).length
+    // const totalNonDietMeals = meals.filter((meal) => !meal.is_diet).length
+
+    const { } = totalMeals.reduce
+
+  })
+
   app.get('/', async (request, reply) => {
     const { id: userId } = request.user
 
