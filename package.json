@@ -1,0 +1,21 @@
+{
+  "name": "daily-diet-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "fastify": "^4.26.2",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  }
+}

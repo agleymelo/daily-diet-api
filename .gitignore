@@ -1,0 +1,14 @@
+# Depdencies
+node_modules
+
+# Database
+database/*.sqlite
+
+#  Environment variables
+.env
+.env.test
+
+.DS_Store
+
+# Build
+build
