@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex"
+    "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex",
+    "test": "vitest"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
@@ -17,7 +18,10 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^6.3.4",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0"
   }
 }

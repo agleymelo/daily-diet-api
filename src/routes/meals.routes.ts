@@ -39,14 +39,6 @@ export async function mealsRoutes(app: FastifyInstance) {
       totalMealsOffDiet: totalMealsOffDiet?.total,
       bestOnDiet
     })
-
-
-    // const meals = await knex("meals").where({ user_id: userId }).orderBy("date", "asc")
-    // const totalDietMeals = meals.filter((meal) => meal.is_diet).length
-    // const totalNonDietMeals = meals.filter((meal) => !meal.is_diet).length
-
-    const { } = totalMeals.reduce
-
   })
 
   app.get('/', async (request, reply) => {
